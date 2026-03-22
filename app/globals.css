@@ -1,0 +1,199 @@
+/* GT-Planar is proprietary — loaded via self-hosting or Shelby CDN in production */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+
+    /* Official Shelby brand variables */
+    --color-bg:            #2C2210;
+    --color-bg-2:          #3A2D18;
+    --color-bg-3:          #4A3820;
+    --color-pink:          #FF77C9;
+    --color-pink-20:       #FFBAE3;
+    --color-pink-10:       #FFDFEF;
+    --color-maroon:        #4A0E2A;
+    --color-orange:        #FF6B3D;
+    --color-purple:        #6B0AC9;
+    --color-lilac:         #C97EFF;
+    --color-forest:        #1A3D1A;
+    --color-lime:          #7AE040;
+    --color-black:         #161008;
+    --color-white:         #FCFAF8;
+    --color-text-muted:    rgba(252, 250, 248, 0.5);
+    --color-border:        rgba(255, 119, 201, 0.15);
+    --color-border-strong: rgba(255, 119, 201, 0.30);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-on-surface font-body antialiased;
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3 {
+    @apply font-headline;
+  }
+
+  code, pre {
+    @apply font-mono;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #271909;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 119, 201, 0.2);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 119, 201, 0.35);
+  }
+}
+
+@layer components {
+  /* ── Stitch design utilities ── */
+  .ghost-border {
+    border: 1px solid rgba(255, 119, 201, 0.2);
+  }
+
+  .active-tab {
+    border: 1px solid #ff77c9;
+    background: rgba(255, 119, 201, 0.05);
+  }
+
+  .glass-panel {
+    background: rgba(50, 35, 18, 0.8);
+    backdrop-filter: blur(20px);
+  }
+
+  /* ── Legacy component utilities (used by UploadProof, StepIndicator, etc.) ── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-full
+           bg-shelby-accent text-shelby-bg font-body font-semibold text-sm
+           transition-all duration-shelby ease-shelby
+           hover:brightness-110 hover:shadow-shelby-glow
+           active:scale-95
+           disabled:opacity-40 disabled:cursor-not-allowed
+           disabled:hover:brightness-100 disabled:hover:shadow-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-2.5 rounded-full
+           border border-shelby-accent/15
+           bg-shelby-bg-card text-shelby-text font-body font-medium text-sm
+           transition-all duration-shelby ease-shelby
+           hover:border-shelby-accent/40 hover:text-shelby-accent
+           active:scale-95
+           disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full
+           text-shelby-text-muted font-body text-sm
+           transition-all duration-shelby ease-shelby
+           hover:text-shelby-text hover:bg-shelby-bg-light
+           active:scale-95;
+  }
+
+  .card {
+    @apply bg-shelby-bg-card border border-shelby-accent/15 rounded-card p-6
+           shadow-shelby-card
+           transition-all duration-shelby ease-shelby;
+  }
+
+  .card-hover {
+    @apply card hover:border-shelby-accent/30 hover:shadow-shelby-glow;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2.5 rounded-card
+           bg-shelby-bg border border-shelby-accent/15
+           text-shelby-text font-body text-sm
+           placeholder:text-shelby-text-muted
+           outline-none
+           transition-all duration-shelby ease-shelby
+           focus:border-shelby-accent focus:shadow-[0_0_0_2px_rgba(255,119,201,0.15)];
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full
+           text-xs font-body font-medium;
+  }
+
+  .badge-accent {
+    @apply badge bg-shelby-accent/10 text-shelby-accent border border-shelby-accent/20;
+  }
+
+  .badge-success {
+    @apply badge bg-shelby-success/10 text-shelby-success border border-shelby-success/20;
+  }
+
+  .badge-error {
+    @apply badge bg-shelby-error/10 text-shelby-error border border-shelby-error/20;
+  }
+
+  .badge-muted {
+    @apply badge bg-shelby-bg text-shelby-text-muted border border-shelby-accent/15;
+  }
+
+  .skeleton {
+    @apply rounded-card
+           bg-gradient-to-r from-shelby-bg-card via-shelby-bg-light to-shelby-bg-card
+           bg-[length:200%_100%] animate-shimmer;
+  }
+
+  .divider {
+    @apply border-t border-shelby-accent/15 my-6;
+  }
+
+  .data-value {
+    @apply font-mono text-sm text-shelby-text-muted tracking-tight;
+  }
+
+  .step-dot {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-xs font-mono font-medium
+           transition-all duration-shelby ease-shelby;
+  }
+
+  .step-dot-active {
+    @apply step-dot bg-shelby-accent text-shelby-bg shadow-shelby-glow;
+  }
+
+  .step-dot-done {
+    @apply step-dot bg-shelby-success/20 text-shelby-success border border-shelby-success/40;
+  }
+
+  .step-dot-pending {
+    @apply step-dot bg-shelby-bg border border-shelby-accent/15 text-shelby-text-muted;
+  }
+}
+
+@layer utilities {
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-shelby-accent to-pink-20 bg-clip-text text-transparent;
+  }
+
+  .glow-accent {
+    text-shadow: 0 0 20px rgba(255, 119, 201, 0.4);
+  }
+}
