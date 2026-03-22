@@ -1,10 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import WalletButton from "@/components/WalletButton";
 import UploadProof from "@/components/UploadProof";
 import ProofList from "@/components/ProofList";
+import AnimatedSection from "@/components/AnimatedSection";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const MODULES = [
   "TaxProof",
@@ -15,6 +18,33 @@ const MODULES = [
 ] as const;
 
 type Module = (typeof MODULES)[number];
+
+const STATS = [
+  {
+    label: "Global Status",
+    title: "Total Proofs",
+    value: "31,204",
+    icon: "account_balance_wallet",
+  },
+  {
+    label: "Network Load",
+    title: "Storage Used",
+    value: "1.4 TB",
+    icon: "cloud_done",
+  },
+  {
+    label: "Verification",
+    title: "Merkle Certs",
+    value: "12,847",
+    icon: "verified",
+  },
+  {
+    label: "Optimization",
+    title: "Avg Package Size",
+    value: "44.2 MB",
+    icon: "package_2",
+  },
+];
 
 export default function Home() {
   const { connected } = useWallet();
@@ -60,99 +90,114 @@ export default function Home() {
             bg-secondary-container/10 rounded-full blur-[100px]
             pointer-events-none" />
           <div className="max-w-4xl">
-            <h1 className="text-6xl md:text-8xl font-headline
-              font-bold text-on-surface leading-[1.1] mb-8">
-              Financial Proof <br />
-              <span className="italic text-primary">of Record</span>
-            </h1>
-            <p className="text-xl md:text-2xl font-body
-              text-on-surface/70 leading-relaxed max-w-2xl mb-12">
-              Anchor your financial documents immutably on Aptos.
-              Every upload generates a cryptographic Merkle proof —
-              tamper-evident, verifiable forever.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <button className="bg-primary-container
-                text-on-primary-container px-8 py-4 rounded-full
-                font-bold text-lg hover:brightness-110
-                active:scale-95 transition-all duration-300
-                shadow-xl shadow-primary/10">
-                Secure My Records
-              </button>
-              <button className="border border-outline-variant/30
-                text-on-surface px-8 py-4 rounded-full font-bold
-                text-lg hover:bg-on-surface/5 active:scale-95
-                transition-all duration-300">
-                View Public Ledger
-              </button>
-            </div>
+            <AnimatedSection delay={0}>
+              <h1 className="text-6xl md:text-8xl font-headline
+                font-bold text-on-surface leading-[1.1] mb-8">
+                Financial Proof <br />
+                <span className="italic text-primary">of Record</span>
+              </h1>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.1}>
+              <p className="text-xl md:text-2xl font-body
+                text-on-surface/70 leading-relaxed max-w-2xl mb-12">
+                Anchor your financial documents immutably on Aptos.
+                Every upload generates a cryptographic Merkle proof —
+                tamper-evident, verifiable forever.
+              </p>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.2}>
+              <div className="flex flex-wrap gap-4">
+                <button className="bg-primary-container
+                  text-on-primary-container px-8 py-4 rounded-full
+                  font-bold text-lg hover:brightness-110
+                  active:scale-95 transition-all duration-300
+                  shadow-xl shadow-primary/10">
+                  Secure My Records
+                </button>
+                <button className="border border-outline-variant/30
+                  text-on-surface px-8 py-4 rounded-full font-bold
+                  text-lg hover:bg-on-surface/5 active:scale-95
+                  transition-all duration-300">
+                  View Public Ledger
+                </button>
+              </div>
+              <p className="mt-8 text-xs font-mono
+                text-on-surface/30 tracking-widest uppercase">
+                Built by{" "}
+                <a
+                  href="https://x.com/YoneCode"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary/60 hover:text-primary transition-colors"
+                >
+                  @YoneCode
+                </a>
+                {" "}·{"  "}Powered by{" "}
+                <a
+                  href="https://docs.shelby.xyz/protocol"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary/60 hover:text-primary transition-colors"
+                >
+                  Shelby Protocol
+                </a>
+                {" "}×{" "}
+                <a
+                  href="https://explorer.aptoslabs.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary/60 hover:text-primary transition-colors"
+                >
+                  Aptos
+                </a>
+              </p>
+            </AnimatedSection>
           </div>
         </section>
 
         {/* ── STATS ── */}
         <section className="grid grid-cols-1 md:grid-cols-2
           lg:grid-cols-4 gap-6 mb-8">
-          {[
-            {
-              label: "Global Status",
-              title: "Total Proofs",
-              value: "31,204",
-              icon: "account_balance_wallet",
-            },
-            {
-              label: "Network Load",
-              title: "Storage Used",
-              value: "1.4 TB",
-              icon: "cloud_done",
-            },
-            {
-              label: "Verification",
-              title: "Merkle Certs",
-              value: "12,847",
-              icon: "verified",
-            },
-            {
-              label: "Optimization",
-              title: "Avg Package Size",
-              value: "44.2 MB",
-              icon: "package_2",
-            },
-          ].map((stat) => (
-            <div
-              key={stat.title}
-              className="ghost-border p-8 rounded-DEFAULT
+          {STATS.map((stat, i) => (
+            <AnimatedSection key={stat.title} delay={0.1 * i}>
+              <div className="ghost-border p-8 rounded-DEFAULT
                 bg-surface-container-low flex flex-col
                 justify-between min-h-[160px]
                 hover:bg-surface-container
-                transition-colors duration-300"
-            >
-              <div className="flex justify-between items-start mb-4">
-                <span className="material-symbols-outlined text-primary">
-                  {stat.icon}
-                </span>
-                <span className="text-xs font-label uppercase
-                  text-on-surface/40 tracking-widest">
-                  {stat.label}
-                </span>
+                transition-colors duration-300">
+                <div className="flex justify-between items-start mb-4">
+                  <span className="material-symbols-outlined text-primary">
+                    {stat.icon}
+                  </span>
+                  <span className="text-xs font-label uppercase
+                    text-on-surface/40 tracking-widest">
+                    {stat.label}
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-sm font-body text-on-surface/60 mb-1">
+                    {stat.title}
+                  </h3>
+                  <AnimatedCounter
+                    value={stat.value}
+                    className="text-4xl font-mono font-bold text-primary"
+                  />
+                </div>
               </div>
-              <div>
-                <h3 className="text-sm font-body text-on-surface/60 mb-1">
-                  {stat.title}
-                </h3>
-                <p className="text-4xl font-mono font-bold text-primary">
-                  {stat.value}
-                </p>
-              </div>
-            </div>
+            </AnimatedSection>
           ))}
         </section>
 
         {/* ── MODULE TABS ── */}
         <section className="flex flex-wrap gap-4 mb-16 overflow-x-auto pb-4">
           {MODULES.map((mod) => (
-            <button
+            <motion.button
               key={mod}
               onClick={() => setActiveModule(mod)}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               className={`px-6 py-3 rounded-full font-label
                 text-sm font-semibold transition-all
                 ${
@@ -162,7 +207,7 @@ export default function Home() {
                 }`}
             >
               {mod}
-            </button>
+            </motion.button>
           ))}
         </section>
 
@@ -170,8 +215,12 @@ export default function Home() {
         {connected ? (
           <section className="grid grid-cols-1 lg:grid-cols-2
             gap-8 items-stretch">
-            <UploadProof activeModule={activeModule} />
-            <ProofList />
+            <AnimatedSection delay={0.2}>
+              <UploadProof activeModule={activeModule} />
+            </AnimatedSection>
+            <AnimatedSection delay={0.3}>
+              <ProofList />
+            </AnimatedSection>
           </section>
         ) : (
           <section className="ghost-border rounded-DEFAULT
@@ -216,26 +265,34 @@ export default function Home() {
             <a
               href="https://docs.shelby.xyz/protocol"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
             >
               Shelby Docs
             </a>
             <a
+              href="https://x.com/shelbyserves"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+            >
+              Shelby X
+            </a>
+            <a
               href="https://explorer.shelby.xyz/shelbynet"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
             >
               Explorer
             </a>
             <a
-              href="https://explorer.aptoslabs.com"
+              href="https://x.com/YoneCode"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
             >
-              Aptos
+              Built by @YoneCode
             </a>
           </div>
         </div>
