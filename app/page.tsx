@@ -157,6 +157,39 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── MARQUEE ── */}
+        <div className="relative mb-16 overflow-hidden
+          border-y border-pink/10 py-3">
+          <div className="flex w-max animate-marquee">
+            {[0, 1].map((i) => (
+              <span
+                key={i}
+                className="flex shrink-0 gap-8 pr-8
+                  font-mono text-xs uppercase text-on-surface/30
+                  whitespace-nowrap"
+              >
+                {[
+                  "SHELBY PROTOCOL",
+                  "APTOS L1",
+                  "CLAY CODES",
+                  "MERKLE PROOF",
+                  "TAMPER-EVIDENT",
+                  "ERASURE CODING",
+                  "10+6 REDUNDANCY",
+                  "FINANCIAL TRUTH",
+                  "ZERO TRUST",
+                  "ON-CHAIN RECORD",
+                ].map((word) => (
+                  <span key={word}>
+                    {word}
+                    <span className="ml-8 text-primary/30">·</span>
+                  </span>
+                ))}
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* ── STATS ── */}
         <section className="grid grid-cols-1 md:grid-cols-2
           lg:grid-cols-4 gap-6 mb-8">
